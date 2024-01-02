@@ -43,8 +43,7 @@ public class DataManager : MonoBehaviour
 
         ListContainer listContainer = new ListContainer();
         listContainer.listScore = listPlayerScore;
-        string json = JsonUtility.ToJson(listContainer);
-        //Debug.Log("Lista: "+json);
+        string json = JsonUtility.ToJson(listContainer); 
 
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
 

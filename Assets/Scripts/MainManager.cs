@@ -41,8 +41,8 @@ public class MainManager : MonoBehaviour
             }
         }
         NewRecordText.gameObject.SetActive(false);
-        PlayerScore playerScore = DataManager.Instance.GetTopUser();
-        BestScoreText.text = "Best Score : " + playerScore.nameX + " : " + DataManager.FormatScore(playerScore.scoreX);
+        PlayerScore playerScore = DataManager.Instance.GetTopUser(); 
+        ShowBestScore(playerScore.scoreX, playerScore.nameX); 
     }
 
     private void Update()
@@ -72,9 +72,17 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points} Name : {DataManager.Instance.actualPlayerName}";
+        ShowScore(m_Points, DataManager.Instance.actualPlayerName);
     }
 
+    private void ShowScore(int points, string name)
+    {
+        ScoreText.text = $"Score : {points} Name : {name}";
+    }
+    private void ShowBestScore(int points, string name)
+    {
+        BestScoreText.text = "Best Score : " + name + " : " + DataManager.FormatScore(points);
+    }
     public void GameOver()
     {
         PlayerScore playerScore = DataManager.Instance.GetTopUser();
@@ -82,7 +90,8 @@ public class MainManager : MonoBehaviour
         {
             //New Record
             NewRecordText.gameObject.SetActive(true);
-            BestScoreText.text = "Best Score : " + DataManager.Instance.actualPlayerName + " : " + DataManager.FormatScore(m_Points);
+            ShowBestScore(m_Points, DataManager.Instance.actualPlayerName);
+     //BestScoreText.text = "Best Score : " + DataManager.Instance.actualPlayerName + " : " + DataManager.FormatScore(m_Points);
         } 
 
         DataManager.Instance.actualScore = m_Points;
